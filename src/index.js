@@ -19,7 +19,6 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 console.log('it works!');
-
 console.log('gon', gon);
 ReactDOM.render(
   <Channels channels={gon.channels} />,
