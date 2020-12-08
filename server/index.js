@@ -3,7 +3,7 @@
 import 'regenerator-runtime/runtime';
 import path from 'path';
 import Pug from 'pug';
-import socket  from 'socket.io';
+import socket from 'socket.io';
 import fastify from 'fastify';
 import pointOfView from 'point-of-view';
 import fastifyStatic from 'fastify-static';
