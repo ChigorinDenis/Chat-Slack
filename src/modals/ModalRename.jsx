@@ -27,14 +27,12 @@ function ModalRename(props) {
   const { isOpen, modalName, data } = modals;
   const { name } = data;
   const formik = useFormik({
-    initialValues: { name: `py${name}x` },
+    initialValues: { name },
     onSubmit: generateOnSubmit(dispatch, data.id),
   });
-
-  // const inputEl = useRef();
-  // useEffect(() => inputEl, []);
   return (
     <Modal
+      // show={true}
       show={isOpen && modalName === 'renamingModal'}
       onHide={() => dispatch(closeModal())}
     >
@@ -47,9 +45,8 @@ function ModalRename(props) {
         <form onSubmit={formik.handleSubmit}>
           <FormGroup>
             <FormControl
-              data-testid='input-body'
               name='name'
-              // ref={inputEl}
+              // ref={inputRef}
               onChange={formik.handleChange}
               value={formik.values.name}
               required

@@ -6,6 +6,7 @@ import {
 } from 'formik';
 import { connect } from 'react-redux';
 import axios from 'axios';
+import classNames from 'classnames';
 
 import routes from '../routes';
 import UserContext from '../context.js';
@@ -34,6 +35,7 @@ function FormMessage(props) {
           const { message } = values;
           const { channelMessagesPath } = routes;
           const pathMessage = channelMessagesPath(currentChannelId);
+          console.log(inputEl.current);
           try {
             await axios.post(pathMessage, { data: { attributes: { message, userName } } });
             setStatus({ success: true });
@@ -44,41 +46,48 @@ function FormMessage(props) {
           }
         }}
       >
-        {({ isSubmitting, errors }) => (
-          <Form>
-            <div
-              className='form-group'
-            >
+        {({ isSubmitting, errors }) => {
+          const inputClass = classNames({
+            'mr-2 form-control': true,
+            'is-invalid': errors.submit,
+          });
+          return (
+            <Form>
               <div
-                className='input-group'
+                className='form-group'
               >
-                <Field
-                  type='text'
-                  name='message'
-                  innerRef={inputEl}
-                  className='mr-2 form-control'
-                  disabled={isSubmitting}
-                  autoFocus
-                />
-                <button
-                  aria-label='submit'
-                  type='submit'
-                  className='btn btn-primary'
-                  disabled={isSubmitting}
-                >
-                  Submit
-                </button>
                 <div
-                  className='d-block invalid-feedback'
+                  className='input-group'
                 >
-                  {errors.submit}
-                  &nbsp;
+                  <Field
+                    type='text'
+                    name='message'
+                    innerRef={inputEl}
+                    className={inputClass}
+                    disabled={isSubmitting}
+                    autoFocus
+                  />
+                  <button
+                    aria-label='submit'
+                    type='submit'
+                    className='btn btn-primary'
+                    disabled={isSubmitting}
+                  >
+                    Submit
+                  </button>
+                  <div
+                    className='d-block invalid-feedback'
+                  >
+                    {errors.submit}
+                    &nbsp;
+                  </div>
                 </div>
               </div>
-            </div>
-          </Form>
-        )}
+            </Form>
+          );
+        }}
       </Formik>
+      <input id='faka' />
     </div>
   );
 }

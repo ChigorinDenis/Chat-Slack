@@ -7,17 +7,17 @@ const initialState = {
   isOpen: false,
   modalName: null,
   data: {},
-}
+};
 
 export default (createReducer(initialState, {
-  [openModal.type]: (state, { payload }) => {
-    state.modalName = payload.modalName;
-    state.isOpen = true;
-    state.data = payload.data || {};
-  },
-  [closeModal.type]: (state) => {
-    state.modalName = null;
-    state.isOpen = false;
-    state.data = {};
-  },
+  [openModal.type]: (state, { payload }) => ({
+    modalName: payload.modalName,
+    isOpen: true,
+    data: payload.data || {},
+  }),
+  [closeModal.type]: () => ({
+    modalName: null,
+    isOpen: false,
+    data: {},
+  }),
 }));
