@@ -87,7 +87,6 @@ function FormMessage(props) {
           );
         }}
       </Formik>
-      <input id='faka' />
     </div>
   );
 }
