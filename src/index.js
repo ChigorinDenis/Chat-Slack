@@ -5,26 +5,18 @@ import 'regenerator-runtime/runtime';
 
 import '../assets/application.scss';
 
-// import faker from 'faker';
 import gon from 'gon';
-// import Cookies from 'js-cookie';
+import Rollbar from 'rollbar';
 import { io } from 'socket.io-client';
 import ReactDOM from 'react-dom';
 import React from 'react';
 import { Provider } from 'react-redux';
-// import { useDispatch } from 'react-redux'
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
-// import Channels from './components/Channels.jsx';
-// import MessageBox from './components/MessageBox.jsx';
-// import ModalAdd from './modals/ModalAdd.jsx';
-// import ModalRename from './modals/ModalRename.jsx';
-// import ModalRemove from './modals/ModalRemove.jsx';
 import channelReducer from './reducers/channelReducer';
 import messageReducer from './reducers/messageReducer';
 import uiReducer from './reducers/uiReducer';
 import modalsReducer from './reducers/modalsReducer';
-// import { addMessage } from './reducers/messageReducer';
-// import { addChannel} from './reducers/channelReducer';
+
 import UserContext from './context';
 import initializeSockets from './sockets';
 import auth from './auth.js';
@@ -33,6 +25,18 @@ import App from './App.jsx';
 if (process.env.NODE_ENV !== 'production') {
   localStorage.debug = 'chat:*';
 }
+
+const rollbar = new Rollbar();
+
+rollbar.configure({
+  accessToken: '51be6d6389f44b9495c894f0788efab4',
+  captureUncaught: true,
+  captureUnhandledRejections: true,
+  payload: {
+    environment: 'production',
+  },
+});
+
 const rootReducer = combineReducers({
   channels: channelReducer(gon.channels),
   messages: messageReducer(gon.messages),

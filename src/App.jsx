@@ -1,9 +1,9 @@
 import React from 'react';
 import Channels from './components/Channels.jsx';
 import MessageBox from './components/MessageBox.jsx';
-import ModalAdd from './modals/ModalAdd.jsx';
-import ModalRename from './modals/ModalRename.jsx';
-import ModalRemove from './modals/ModalRemove.jsx';
+import ModalAddChannel from './modals/ModalAddChannel.jsx';
+import ModalRenameChannel from './modals/ModalRenameChannel.jsx';
+import ModalRemoveChannel from './modals/ModalRemoveChannel.jsx';
 
 function App() {
   return (
@@ -12,9 +12,9 @@ function App() {
     >
       <Channels />
       <MessageBox />
-      <ModalAdd />
-      <ModalRename />
-      <ModalRemove />
+      <ModalAddChannel />
+      <ModalRenameChannel />
+      <ModalRemoveChannel />
     </div>
   );
 }
