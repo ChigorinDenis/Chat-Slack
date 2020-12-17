@@ -1,18 +1,10 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import FormMessage from './FormMessage.jsx';
 
-const mapStateToProps = (state) => {
-  const props = {
-    messages: state.messages,
-    ui: state.ui,
-  };
-  return props;
-};
-
-function MessageBox(props) {
-  const { messages, ui } = props;
-  const { currentChannelId } = ui;
+function MessageBox() {
+  const messages = useSelector((state) => state.messages);
+  const { currentChannelId } = useSelector((state) => state.ui);
   const curentChannelMessages = messages
     .filter((message) => message.channelId === currentChannelId);
   return (
@@ -46,4 +38,4 @@ function MessageBox(props) {
   );
 }
 
-export default connect(mapStateToProps)(MessageBox);
+export default MessageBox;

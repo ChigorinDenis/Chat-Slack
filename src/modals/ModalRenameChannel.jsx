@@ -1,19 +1,13 @@
 import React from 'react';
-import { useDispatch, connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Modal } from 'react-bootstrap';
+import i18next from 'i18next';
 import { closeModal } from '../reducers/modalsReducer';
-import FormRenameChannel from '../forms/FormRenameChannel';
+import FormRenameChannel from '../components/FormRenameChannel';
 
-const mapStateToProps = (state) => {
-  const props = {
-    modals: state.modals,
-  };
-  return props;
-};
-
-function ModalRename(props) {
+function ModalRename() {
   const dispatch = useDispatch();
-  const { modals } = props;
+  const modals = useSelector((state) => state.modals);
   const { isOpen, modalName } = modals;
   return (
     <Modal
@@ -22,7 +16,7 @@ function ModalRename(props) {
     >
       <Modal.Header closeButton>
         <Modal.Title>
-          Rename Channel
+          {i18next.t('modals.renamingChannel.title')}
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
@@ -32,4 +26,4 @@ function ModalRename(props) {
   );
 }
 
-export default connect(mapStateToProps)(ModalRename);
+export default ModalRename;

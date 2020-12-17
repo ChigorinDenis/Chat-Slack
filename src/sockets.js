@@ -1,4 +1,4 @@
-import { addMessage, removeMessages } from './reducers/messageReducer';
+import { addMessage } from './reducers/messageReducer';
 import {
   addChannel,
   renameChannel,
@@ -27,7 +27,6 @@ function initializeSokets(store, socket) {
 
   socket.on('removeChannel', ({ data }) => {
     store.dispatch(removeChannel(data));
-    store.dispatch(removeMessages(data));
   });
 }
 

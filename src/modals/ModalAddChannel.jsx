@@ -1,19 +1,13 @@
 import React from 'react';
-import { useDispatch, connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import i18next from 'i18next';
 import { Modal } from 'react-bootstrap';
-import FormAdd from '../forms/FormAddChannel';
+import FormAdd from '../components/FormAddChannel';
 import { closeModal } from '../reducers/modalsReducer';
 
-const mapStateToProps = (state) => {
-  const props = {
-    modals: state.modals,
-  };
-  return props;
-};
-
-function ModalAdd(props) {
+function ModalAdd() {
   const dispatch = useDispatch();
-  const { modals } = props;
+  const modals = useSelector((state) => state.modals);
   const { isOpen, modalName } = modals;
 
   return (
@@ -23,7 +17,7 @@ function ModalAdd(props) {
     >
       <Modal.Header closeButton>
         <Modal.Title>
-          Add Channel
+          {i18next.t('modals.addingChannel.title')}
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
@@ -33,4 +27,4 @@ function ModalAdd(props) {
   );
 }
 
-export default connect(mapStateToProps)(ModalAdd);
+export default ModalAdd;

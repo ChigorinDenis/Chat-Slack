@@ -1,16 +1,10 @@
 import React, { useEffect, useRef } from 'react';
-import { useDispatch, connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Form, FormGroup } from 'react-bootstrap';
+import i18next from 'i18next';
 import axios from 'axios';
 import routes from '../routes';
 import { closeModal } from '../reducers/modalsReducer';
-
-const mapStateToProps = (state) => {
-  const props = {
-    modals: state.modals,
-  };
-  return props;
-};
 
 const handleSubmit = (dispatch, id) => async (event) => {
   event.preventDefault();
@@ -20,9 +14,9 @@ const handleSubmit = (dispatch, id) => async (event) => {
   dispatch(closeModal());
 };
 
-function FormRemoveChannel(props) {
+function FormRemoveChannel() {
   const dispatch = useDispatch();
-  const { modals } = props;
+  const modals = useSelector((state) => state.modals);
   const { data } = modals;
   const { id } = data;
   const cancelRef = useRef();
@@ -31,7 +25,7 @@ function FormRemoveChannel(props) {
   }, []);
   return (
     <>
-      <p>Remove this channel with all messages?</p>
+      <p>{i18next.t('modals.removingChannel.textInfo')}</p>
       <Form onSubmit={handleSubmit(dispatch, id)}>
         <FormGroup>
           <button
@@ -39,17 +33,18 @@ function FormRemoveChannel(props) {
             className='mr-2 btn btn-secondary'
             ref={cancelRef}
           >
-            Cancel
+            {i18next.t('buttons.type.cancel')}
           </button>
-          <input
+          <button
             className='btn btn-danger'
             type='submit'
-            value='Remove'
-          />
+          >
+            {i18next.t('buttons.type.remove')}
+          </button>
         </FormGroup>
       </Form>
     </>
   );
 }
 
-export default connect(mapStateToProps)(FormRemoveChannel);
+export default FormRemoveChannel;

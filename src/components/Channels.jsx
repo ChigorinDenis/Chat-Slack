@@ -1,23 +1,15 @@
 import React from 'react';
-import { useDispatch, connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   ButtonGroup,
   DropdownButton,
   Dropdown,
   Button,
 } from 'react-bootstrap';
+import i18next from 'i18next';
 import classNames from 'classnames';
 import { toggleChannel } from '../reducers/uiReducer';
 import { openModal } from '../reducers/modalsReducer';
-
-const mapStateToProps = (state) => {
-  const props = {
-    channels: state.channels,
-    modals: state.modals,
-    ui: state.ui,
-  };
-  return props;
-};
 
 const buildChannelButton = ({
   id,
@@ -45,13 +37,13 @@ const buildChannelButton = ({
             eventKey='1'
             onSelect={() => dispatch(openModal({ modalName: 'removingModal', data: { id, name } }))}
           >
-            remove
+            {i18next.t('buttons.type.remove')}
           </Dropdown.Item>
           <Dropdown.Item
             eventKey='2'
             onSelect={() => dispatch(openModal({ modalName: 'renamingModal', data: { id, name } }))}
           >
-            rename
+            {i18next.t('buttons.type.rename')}
           </Dropdown.Item>
         </DropdownButton>
       </ButtonGroup>
@@ -67,9 +59,9 @@ const buildChannelButton = ({
   );
 };
 
-function Channels(props) {
-  const { channels, ui } = props;
-  const { currentChannelId } = ui;
+function Channels() {
+  const channels = useSelector((state) => state.channels);
+  const { currentChannelId } = useSelector((state) => state.ui);
   const dispatch = useDispatch();
   return (
     <div
@@ -79,7 +71,7 @@ function Channels(props) {
         className='d-flex mb-2'
       >
         <span>
-          Channels
+          {i18next.t('channels')}
         </span>
         <button
           className='ml-auto p-0 btn btn-link'
@@ -92,7 +84,7 @@ function Channels(props) {
       <ul
         className='nav flex-column nav-pills nav-fill'
       >
-        {channels.map((channel) => {
+        {channels && channels.map((channel) => {
           const { id } = channel;
           return (
             <li
@@ -108,4 +100,4 @@ function Channels(props) {
   );
 }
 
-export default connect(mapStateToProps)(Channels);
+export default Channels;

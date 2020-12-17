@@ -1,21 +1,14 @@
 import React from 'react';
-import { useDispatch, connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Modal } from 'react-bootstrap';
+import i18next from 'i18next';
 import { closeModal } from '../reducers/modalsReducer';
-import FromRemoveChannel from '../forms/FormRemoveChannel';
+import FromRemoveChannel from '../components/FormRemoveChannel';
 
-const mapStateToProps = (state) => {
-  const props = {
-    modals: state.modals,
-  };
-  return props;
-};
-
-function ModalRemove(props) {
+function ModalRemove() {
   const dispatch = useDispatch();
-  const { modals } = props;
+  const modals = useSelector((state) => state.modals);
   const { isOpen, modalName } = modals;
-
   return (
     <Modal
       show={isOpen && modalName === 'removingModal'}
@@ -23,7 +16,7 @@ function ModalRemove(props) {
     >
       <Modal.Header closeButton>
         <Modal.Title>
-          Remove Channel
+          {i18next.t('modals.removingChannel.title')}
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
@@ -33,4 +26,4 @@ function ModalRemove(props) {
   );
 }
 
-export default connect(mapStateToProps)(ModalRemove);
+export default ModalRemove;

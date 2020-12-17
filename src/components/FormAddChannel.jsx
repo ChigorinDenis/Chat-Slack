@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { useFormik } from 'formik';
 import { useDispatch } from 'react-redux';
+import i18next from 'i18next';
 import { Form, FormGroup, FormControl } from 'react-bootstrap';
 import axios from 'axios';
 import routes from '../routes';
@@ -46,13 +47,13 @@ function FormAddChannel() {
           type='button'
           className='mr-2 btn btn-secondary'
         >
-          Cancel
+          {i18next.t('buttons.type.cancel')}
         </button>
         <button
           type='submit'
           className='btn btn-primary'
         >
-          Submit
+          {i18next.t('buttons.type.submit')}
         </button>
       </div>
     </Form>

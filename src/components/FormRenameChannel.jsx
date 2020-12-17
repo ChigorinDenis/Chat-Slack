@@ -1,17 +1,11 @@
 import React, { useEffect, useRef } from 'react';
 import { useFormik } from 'formik';
-import { useDispatch, connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Form, FormGroup, FormControl } from 'react-bootstrap';
+import i18next from 'i18next';
 import axios from 'axios';
 import routes from '../routes';
 import { closeModal } from '../reducers/modalsReducer';
-
-const mapStateToProps = (state) => {
-  const props = {
-    modals: state.modals,
-  };
-  return props;
-};
 
 const generateOnSubmit = (dispatch, id) => async (values) => {
   const { channelPath } = routes;
@@ -21,9 +15,9 @@ const generateOnSubmit = (dispatch, id) => async (values) => {
   dispatch(closeModal());
 };
 
-function FormRenameChannel(props) {
+function FormRenameChannel() {
   const dispatch = useDispatch();
-  const { modals } = props;
+  const modals = useSelector((state) => state.modals);
   const { data } = modals;
   const { name } = data;
   const formik = useFormik({
@@ -52,17 +46,17 @@ function FormRenameChannel(props) {
           type='button'
           className='mr-2 btn btn-secondary'
         >
-          Cancel
+          {i18next.t('buttons.type.cancel')}
         </button>
         <button
           type='submit'
           className='btn btn-primary'
         >
-          Submit
+          {i18next.t('buttons.type.submit')}
         </button>
       </div>
     </Form>
   );
 }
 
-export default connect(mapStateToProps)(FormRenameChannel);
+export default FormRenameChannel;
