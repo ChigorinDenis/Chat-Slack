@@ -16,7 +16,7 @@ import setCookieUserName from './userName.js';
 import App from './App.jsx';
 import en from './locales/en';
 
-export default () => {
+export default async () => {
   if (process.env.NODE_ENV !== 'production') {
     localStorage.debug = 'chat:*';
   }
@@ -31,19 +31,17 @@ export default () => {
       environment: 'production',
     },
   });
-
-  i18next.init({
-    lng: 'en',
-    debug: true,
-    resources: {
-      en,
-    },
-    function(err) {
-      if (err) {
-        console.log('something went wrong', err);
-      }
-    },
-  });
+  try {
+    await i18next.init({
+      lng: 'en',
+      debug: true,
+      resources: {
+        en,
+      },
+    });
+  } catch (err) {
+    console.log('something went wrong', err);
+  }
 
   const rootReducer = combineReducers({
     channels: channelReducer,
