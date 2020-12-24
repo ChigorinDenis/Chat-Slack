@@ -31,17 +31,14 @@ export default async () => {
       environment: 'production',
     },
   });
-  try {
-    await i18next.init({
-      lng: 'en',
-      debug: true,
-      resources: {
-        en,
-      },
-    });
-  } catch (err) {
-    console.log('something went wrong', err);
-  }
+
+  await i18next.init({
+    lng: 'en',
+    debug: true,
+    resources: {
+      en,
+    },
+  });
 
   const rootReducer = combineReducers({
     channels: channelReducer,
